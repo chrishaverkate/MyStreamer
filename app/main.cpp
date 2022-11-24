@@ -1,8 +1,10 @@
 #include <iostream>
-#include <my_streamer/message.h>
+#include <string>
 
 #include <gst/gst.h>
 #include <stdio.h>
+
+using std::string;
 
 int main(int argc, char** argv) {
 	GstElement* pipeline;
@@ -13,9 +15,13 @@ int main(int argc, char** argv) {
 	gst_init(&argc, &argv);
 
 	/* Build the pipeline */
-	pipeline =
-	    gst_parse_launch("playbin uri=https://www.freedesktop.org/software/gstreamer-sdk/data/media/sintel_trailer-480p.webm",
-	                     NULL);
+	string playbin = "playbin";
+	string camerabin = "camerabin";
+
+	string sintel_trailer = playbin + " uri=https://www.freedesktop.org/software/gstreamer-sdk/data/media/sintel_trailer-480p.webm";
+	string camera = camerabin + " uri=file:///dev/video2";
+
+	pipeline = gst_parse_launch(camera.c_str(), NULL);
 
 	/* Start playing */
 	gst_element_set_state(pipeline, GST_STATE_PLAYING);
