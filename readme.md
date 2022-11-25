@@ -47,3 +47,27 @@ Mostly a copy/paste, but needed to add a static cast to the options for `gst_bus
 ```c
 msg = gst_bus_timed_pop_filtered(bus, GST_CLOCK_TIME_NONE, static_cast<GstMessageType>(GST_MESSAGE_ERROR | GST_MESSAGE_EOS));
 ```
+
+# Building
+## Localhost with Dependencies installed
+
+### Script
+From the project directory:
+```shell
+./scripts/run-build-linux.bash
+```
+
+#### CMake / IDE
+No special CMake flags are needed. Pick your build time (release / debug), configure your build directory,
+and all should work.
+
+## Docker
+A docker environment is defined to abstract the build. It can be used as a remote host containing the dependencies
+or as a fully automated build.
+
+### Automated build
+This will handle building the image; mounting the source into the container; and the artifacts will be in the 
+`<project-root>/build/linux-release`.
+```shell
+./scripts/run-build-docker.bash
+```

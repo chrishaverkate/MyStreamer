@@ -1,0 +1,20 @@
+name: Main
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run build script
+        run: ./${{github.workspace}}/scripts/run-build-docker.bash
+        shell: bash

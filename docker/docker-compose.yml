@@ -1,0 +1,28 @@
+version: "2.4"
+
+services:
+
+  # Defines base image and container configuration to launch a development environment.
+  # IDE's can use user@localhost on port 2222 as if it was a remote machine for compiling.
+  # run:
+  #     docker-compose up
+  mystreamer-remote-agent:
+    build:
+      context: linux-ubuntu2204/
+    image: mystreamer/remote-agent:1.0
+    volumes:
+      - ../:/opt/src
+    ports:
+      - "127.0.0.1:2222:22"
+    stdin_open: true
+    tty: true
+    working_dir: /opt/src/build
+    entrypoint: /usr/sbin/sshd -D -e -f /etc/ssh/sshd_config_test_clion
+
+  # run 'docker-compose run --rm pico-gcc-automated' in the docker folder.
+  # output will be in the build folder
+  mystreamer-automated-build:
+    extends:
+      service: mystreamer-remote-agent
+    container_name: mystreamer-automated-build
+    entrypoint: /bin/bash /opt/src/scripts/run-build-linux.bash
