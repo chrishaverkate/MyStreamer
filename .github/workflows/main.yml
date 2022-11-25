@@ -16,5 +16,5 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Run build script
-        run: ./${{github.workspace}}/scripts/run-build-docker.bash
+        run: cd ${{github.workspace}}/scripts && ./run-build-docker.bash
         shell: bash
