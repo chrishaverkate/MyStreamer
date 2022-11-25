@@ -15,6 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Init Submodules
+        run: git submodule update --init
+
       - name: Run build script
         run: cd ${{github.workspace}}/scripts && ./run-build-docker.bash
         shell: bash
