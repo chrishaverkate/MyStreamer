@@ -4,4 +4,4 @@ dir_script="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 dir_docker="$dir_script"/../docker
 
 cd "$dir_docker" || exit
-docker-compose run --rm mystreamer-automated-build
+docker-compose run --rm cicd-gstreamer

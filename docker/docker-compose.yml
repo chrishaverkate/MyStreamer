@@ -26,3 +26,12 @@ services:
       service: mystreamer-remote-agent
     container_name: mystreamer-automated-build
     entrypoint: /bin/bash /opt/src/scripts/run-build-linux.bash
+
+  # A much faster image to use. It is prebuilt and stored on dockerhub.
+  cicd-gstreamer:
+    build:
+      context: cicd-gstreamer/
+    volumes:
+      - ../:/opt/src
+    working_dir: /opt/src/build
+    entrypoint: /bin/bash /opt/src/scripts/run-build-linux.bash
